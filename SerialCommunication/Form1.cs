@@ -57,8 +57,13 @@ namespace SerialCommunication
         {
             //byte[] buffer = { (byte)'a', (byte)'b', (byte)'x', (byte)'e' };
             //port1.Write(buffer, 0, buffer.Length);
-            timer1.Interval = 100;
+
+            timer1.Interval = 80;
             timer1.Enabled = true;
+
+            //byte[] buffer = { 0x01, 0x02, 0x10, 0x11, 0x12, 0xFF };
+            //byte[] buffer = { 0x01, 0x02, 0x10, 0x11, 0x12, 0x20, 0x21, 0x22, 0x30, 0x31, 0x32, 0xFF };
+            //port1.Write(buffer, 0, buffer.Length);
 
         }
 
@@ -75,28 +80,94 @@ namespace SerialCommunication
         }
 
 
-        int n = 0;
-        private void port1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            double xAccel = double.Parse(port1.ReadLine());
-            textBox2.Text = xAccel.ToString();
 
-            n++;
-            chart1.Series[0].Points.AddXY(n, xAccel);
-
-        }
-
-
-
+        int reg = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //See SerialComm.h for magic number descriptions
+            byte[] buffer = {0,0,0};
 
-            //<StartTransmission> <Read Register> <Register Address> <End Transmission>
-            byte[] buffer = { 0x01, 0x02, 0x10, 0xFF };
+            switch (reg)
+            {
+                case 0:
+                    buffer = new byte[] { 0x01, 0x02, 0x10, 0xFF };
+                    break;
+                case 1:
+                    buffer = new byte[] { 0x01, 0x02, 0x11, 0xFF };
+                    break;
+                case 2:
+                    buffer = new byte[] { 0x01, 0x02, 0x12, 0xFF };
+                    break;
+                case 3:
+                    buffer = new byte[] { 0x01, 0x02, 0x20, 0xFF };
+                    break;
+                case 4:
+                    buffer = new byte[] { 0x01, 0x02, 0x21, 0xFF };
+                    break;
+                case 5:
+                    buffer = new byte[] { 0x01, 0x02, 0x22, 0xFF };
+                    break;
+                case 6:
+                    buffer = new byte[] { 0x01, 0x02, 0x30, 0xFF };
+                    break;
+                case 7:
+                    buffer = new byte[] { 0x01, 0x02, 0x31, 0xFF };
+                    break;
+                case 8:
+                    buffer = new byte[] { 0x01, 0x02, 0x32, 0xFF };
+                    break;
+            }
+
+
+            //breaks
+            //byte[] buffer = { 0x01, 0x02, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x11, 0xFF };
+
+            //works
+            //byte[] buffer = { 0x01, 0x02, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x11, 0xFF };
+
             port1.Write(buffer, 0, buffer.Length);
         }
 
+        int n = 0;
+        private void port1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            double intrp = double.Parse(port1.ReadLine());
+            reg++;
+            switch (reg)
+            {
+                case 1:
+                    textBox1.Text = intrp.ToString();
+                    break;
+                case 2:
+                    textBox2.Text = intrp.ToString();
+                    break;
+                case 3:
+                    textBox3.Text = intrp.ToString();
+                    break;
+                case 4:
+                    textBox4.Text = intrp.ToString();
+                    break;
+                case 5:
+                    textBox5.Text = intrp.ToString();
+                    break;
+                case 6:
+                    textBox6.Text = intrp.ToString();
+                    break;
+                case 7:
+                    textBox7.Text = intrp.ToString();
+                    break;
+                case 8:
+                    textBox8.Text = intrp.ToString();
+                    break;
+                case 9:
+                    textBox9.Text = intrp.ToString();
+                    reg = 0;
+                    break;
+            }
+
+            //n++;
+            //chart1.Series[0].Points.AddXY(n, xAccel);
+
+        }
 
         /*      #define SERIALCOMM_START_TOKEN      0x01
                 #define SERIALCOMM_READ_REGISTER    0x02
