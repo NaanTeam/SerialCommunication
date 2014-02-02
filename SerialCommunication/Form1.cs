@@ -27,15 +27,18 @@ namespace SerialCommunication
             {
                 comboBox1.Items.Add(ports[i]);
             }
+            comboBox1.SelectedIndex = 0;
         }
 
+        List<byte> RxBuffer = new List<byte>();
         SerialPort port1;
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text != "")
             {
                 string portName = comboBox1.Text;
-                int badRate = 9600;
+                int badRate = 38400;
                 Parity par = Parity.None;
                 int dataBits = 8;
                 StopBits stpbits = StopBits.One;
@@ -52,21 +55,11 @@ namespace SerialCommunication
             }
 
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            //byte[] buffer = { (byte)'a', (byte)'b', (byte)'x', (byte)'e' };
-            //port1.Write(buffer, 0, buffer.Length);
-
-            timer1.Interval = 80;
+            timer1.Interval = 300;
             timer1.Enabled = true;
-
-            //byte[] buffer = { 0x01, 0x02, 0x10, 0x11, 0x12, 0xFF };
-            //byte[] buffer = { 0x01, 0x02, 0x10, 0x11, 0x12, 0x20, 0x21, 0x22, 0x30, 0x31, 0x32, 0xFF };
-            //port1.Write(buffer, 0, buffer.Length);
-
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
@@ -79,97 +72,57 @@ namespace SerialCommunication
 
         }
 
-
-
-        int reg = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            byte[] buffer = {0,0,0};
-
-            switch (reg)
+            //Interpret buffer
+            if (RxBuffer.Count > 10)
             {
-                case 0:
-                    buffer = new byte[] { 0x01, 0x02, 0x10, 0xFF };
-                    break;
-                case 1:
-                    buffer = new byte[] { 0x01, 0x02, 0x11, 0xFF };
-                    break;
-                case 2:
-                    buffer = new byte[] { 0x01, 0x02, 0x12, 0xFF };
-                    break;
-                case 3:
-                    buffer = new byte[] { 0x01, 0x02, 0x20, 0xFF };
-                    break;
-                case 4:
-                    buffer = new byte[] { 0x01, 0x02, 0x21, 0xFF };
-                    break;
-                case 5:
-                    buffer = new byte[] { 0x01, 0x02, 0x22, 0xFF };
-                    break;
-                case 6:
-                    buffer = new byte[] { 0x01, 0x02, 0x30, 0xFF };
-                    break;
-                case 7:
-                    buffer = new byte[] { 0x01, 0x02, 0x31, 0xFF };
-                    break;
-                case 8:
-                    buffer = new byte[] { 0x01, 0x02, 0x32, 0xFF };
-                    break;
+                byte[] rxBuff = RxBuffer.ToArray();
+                RxBuffer.Clear();
+
+                var floatBuff = new float[rxBuff.Length / 4];
+                Buffer.BlockCopy(rxBuff, 0, floatBuff, 0, rxBuff.Length);
+                if (floatBuff.Length == 9)
+                {
+                    textBox1.Text = floatBuff[0].ToString();
+                    textBox2.Text = floatBuff[1].ToString();
+                    textBox3.Text = floatBuff[2].ToString();
+                    textBox4.Text = floatBuff[3].ToString();
+                    textBox5.Text = floatBuff[4].ToString();
+                    textBox6.Text = floatBuff[5].ToString();
+                    textBox7.Text = floatBuff[6].ToString();
+                    textBox8.Text = floatBuff[7].ToString();
+                    textBox9.Text = floatBuff[8].ToString();
+
+                    chart1.Series[0].Points.Add(floatBuff[0]);
+                }
+                else
+                {
+                    textBox1.Text = "error";
+                }
+                
             }
-
-
-            //breaks
-            //byte[] buffer = { 0x01, 0x02, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x11, 0xFF };
-
-            //works
-            //byte[] buffer = { 0x01, 0x02, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x11, 0xFF };
-
+            byte[] buffer = { 11, 0x02, 
+                                0x10, 0x11, 0x12, 
+                                0x20, 0x21, 0x22,
+                                0x30, 0x31, 0x32};
             port1.Write(buffer, 0, buffer.Length);
         }
 
-        int n = 0;
+
         private void port1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            double intrp = double.Parse(port1.ReadLine());
-            reg++;
-            switch (reg)
+            int c = port1.BytesToRead;
+            for (int i = 0; i < c; i++)
             {
-                case 1:
-                    textBox1.Text = intrp.ToString();
-                    break;
-                case 2:
-                    textBox2.Text = intrp.ToString();
-                    break;
-                case 3:
-                    textBox3.Text = intrp.ToString();
-                    break;
-                case 4:
-                    textBox4.Text = intrp.ToString();
-                    break;
-                case 5:
-                    textBox5.Text = intrp.ToString();
-                    break;
-                case 6:
-                    textBox6.Text = intrp.ToString();
-                    break;
-                case 7:
-                    textBox7.Text = intrp.ToString();
-                    break;
-                case 8:
-                    textBox8.Text = intrp.ToString();
-                    break;
-                case 9:
-                    textBox9.Text = intrp.ToString();
-                    reg = 0;
-                    break;
+                RxBuffer.Add((byte)(port1.ReadByte()));
             }
-
-            //n++;
-            //chart1.Series[0].Points.AddXY(n, xAccel);
-
         }
 
+
+
         /*      #define SERIALCOMM_START_TOKEN      0x01
+         * 
                 #define SERIALCOMM_READ_REGISTER    0x02
                 #define SERIALCOMM_WRITE_REGISTER   0x03
                 #define SERIALCOMM_END_TOKEN        0xFF
