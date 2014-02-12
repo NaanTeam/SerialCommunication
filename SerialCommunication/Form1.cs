@@ -75,33 +75,39 @@ namespace SerialCommunication
         private void timer1_Tick(object sender, EventArgs e)
         {
             //Interpret buffer
-            if (RxBuffer.Count > 10)
+            if (RxBuffer.Count > 0)
             {
-                byte[] rxBuff = RxBuffer.ToArray();
-                RxBuffer.Clear();
-
-                var floatBuff = new float[rxBuff.Length / 4];
-                Buffer.BlockCopy(rxBuff, 0, floatBuff, 0, rxBuff.Length);
-                if (floatBuff.Length == 9)
+                if (RxBuffer.Count >= RxBuffer[0])
                 {
-                    textBox1.Text = floatBuff[0].ToString();
-                    textBox2.Text = floatBuff[1].ToString();
-                    textBox3.Text = floatBuff[2].ToString();
-                    textBox4.Text = floatBuff[3].ToString();
-                    textBox5.Text = floatBuff[4].ToString();
-                    textBox6.Text = floatBuff[5].ToString();
-                    textBox7.Text = floatBuff[6].ToString();
-                    textBox8.Text = floatBuff[7].ToString();
-                    textBox9.Text = floatBuff[8].ToString();
+                    RxBuffer.RemoveAt(0);
+                    byte[] rxBuff = RxBuffer.ToArray();
+                    RxBuffer.Clear();
 
-                    chart1.Series[0].Points.Add(floatBuff[0]);
-                }
-                else
-                {
-                    textBox1.Text = "error";
+                    var floatBuff = new float[rxBuff.Length / 4];
+                    Buffer.BlockCopy(rxBuff, 0, floatBuff, 0, rxBuff.Length);
+                    if (floatBuff.Length == 9)
+                    {
+                        textBox1.Text = floatBuff[0].ToString();
+                        textBox2.Text = floatBuff[1].ToString();
+                        textBox3.Text = floatBuff[2].ToString();
+                        textBox4.Text = floatBuff[3].ToString();
+                        textBox5.Text = floatBuff[4].ToString();
+                        textBox6.Text = floatBuff[5].ToString();
+                        textBox7.Text = floatBuff[6].ToString();
+                        textBox8.Text = floatBuff[7].ToString();
+                        textBox9.Text = floatBuff[8].ToString();
+
+                        chart1.Series[0].Points.Add(floatBuff[0]);
+                    }
+                    else
+                    {
+                        textBox1.Text = "error";
+                    }
                 }
                 
             }
+
+            //Send request
             byte[] buffer = { 11, 0x02, 
                                 0x10, 0x11, 0x12, 
                                 0x20, 0x21, 0x22,
