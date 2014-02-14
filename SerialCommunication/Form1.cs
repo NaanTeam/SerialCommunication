@@ -79,39 +79,43 @@ namespace SerialCommunication
             {
                 if (RxBuffer.Count >= RxBuffer[0])
                 {
-                    RxBuffer.RemoveAt(0);
-                    byte[] rxBuff = RxBuffer.ToArray();
-                    RxBuffer.Clear();
+                    int count = RxBuffer[0];
+                    byte[] rxBuff = new byte[count - 1];
+                    for (int i = 1; i < count; i++)
+                    {
+                        rxBuff[i - 1] = RxBuffer[i];
+                    }
+                    RxBuffer.RemoveRange(0, count);
 
                     var floatBuff = new float[rxBuff.Length / 4];
                     Buffer.BlockCopy(rxBuff, 0, floatBuff, 0, rxBuff.Length);
-                    if (floatBuff.Length == 9)
-                    {
-                        textBox1.Text = floatBuff[0].ToString();
-                        textBox2.Text = floatBuff[1].ToString();
-                        textBox3.Text = floatBuff[2].ToString();
-                        textBox4.Text = floatBuff[3].ToString();
-                        textBox5.Text = floatBuff[4].ToString();
-                        textBox6.Text = floatBuff[5].ToString();
-                        textBox7.Text = floatBuff[6].ToString();
-                        textBox8.Text = floatBuff[7].ToString();
-                        textBox9.Text = floatBuff[8].ToString();
 
-                        chart1.Series[0].Points.Add(floatBuff[0]);
-                    }
-                    else
-                    {
-                        textBox1.Text = "error";
-                    }
+                    textBox1.Text = floatBuff[0].ToString();
+                    textBox2.Text = floatBuff[1].ToString();
+                    textBox3.Text = floatBuff[2].ToString();
+                    textBox4.Text = floatBuff[3].ToString();
+                    textBox5.Text = floatBuff[4].ToString();
+                    textBox6.Text = floatBuff[5].ToString();
+                    textBox7.Text = floatBuff[6].ToString();
+                    textBox8.Text = floatBuff[7].ToString();
+                    textBox9.Text = floatBuff[8].ToString();
+
+                    textBox10.Text = floatBuff[9].ToString(); //pitch
+                    textBox11.Text = floatBuff[10].ToString();//yaw
+                    textBox12.Text = floatBuff[11].ToString();//roll
+
+                    chart1.Series[0].Points.Add(floatBuff[0]);
+
                 }
                 
             }
 
             //Send request
-            byte[] buffer = { 11, 0x02, 
+            byte[] buffer = { 14, 0x02, 
                                 0x10, 0x11, 0x12, 
                                 0x20, 0x21, 0x22,
-                                0x30, 0x31, 0x32};
+                                0x30, 0x31, 0x32,
+                                0x40, 0x41, 0x42};
             port1.Write(buffer, 0, buffer.Length);
         }
 
