@@ -1,0 +1,59 @@
+﻿
+Going into DCM_matrixUpdate()
+
+accelCorrected]	float[3]					
+accelCorrected[0]]	float	-221.0
+accelCorrected[1]]	float	-832.0
+accelCorrected[2]]	float	1144.0
+
+gyroCorrected]	float[3]				
+gyroCorrected[0]]	float	-7037.0
+gyroCorrected[1]]	float	-3725.0
+gyroCorrected[2]]	float	10237.0
+
+magneticCorrected]	float[3]			
+magneticCorrected[0]]	float	125.0	
+magneticCorrected[1]]	float	-118.0	
+magneticCorrected[2]]	float	193.0	
+
+scaledAccelMagnitude]	float	1.213315
+
+gyroScaled]	float[3]					
+gyroScaled[0]]	float	-1.0746647
+gyroScaled[1]]	float	-0.5688683
+gyroScaled[2]]	float	1.5633569
+
+Magnetic_Heading]	float	0.7565995	
+
+
+Update_Matrix[0]]	float[3]					
+Update_Matrix[0][0]]	float	0.0	
+Update_Matrix[0][1]]	float	0.009125448	
+Update_Matrix[0][2]]	float	0.028316906	
+Update_Matrix[1]]	float[3]					
+Update_Matrix[1][0]]	float	-0.009125448	
+Update_Matrix[1][1]]	float	0.0	
+Update_Matrix[1][2]]	float	-0.0032694517	
+Update_Matrix[2]]	float[3]					
+Update_Matrix[2][0]]	float	-0.028316906	
+Update_Matrix[2][1]]	float	0.0032694517	
+Update_Matrix[2][2]]	float	0.0	
+
+
+DCM_Matrix[0]]	float[3]					
+DCM_Matrix[0][0]]	float	1.0
+DCM_Matrix[0][1]]	float	0.0
+DCM_Matrix[0][2]]	float	0.0
+DCM_Matrix[1]]	float[3]	
+DCM_Matrix[1][0]]	float	0.0
+DCM_Matrix[1][1]]	float	1.0
+DCM_Matrix[1][2]]	float	0.0
+DCM_Matrix[2]]	float[3]	
+DCM_Matrix[2][0]]	float	0.0
+DCM_Matrix[2][1]]	float	0.0
+DCM_Matrix[2][2]]	float	1.0
+
+
+
+
+	
