@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 //REQUIRED
 using System.IO.Ports;
-
+using System.Windows.Media.Media3D;
 
 namespace SerialCommunication
 {
@@ -29,10 +29,10 @@ namespace SerialCommunication
                 comboBox1.Items.Add(ports[i]);
             }
             comboBox1.SelectedIndex = 0;
+            tabControl1.SelectedIndex = 1;
         }
 
-        List<byte> RxBuffer = new List<byte>();
-        SerialPort port1;
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -78,12 +78,83 @@ namespace SerialCommunication
         private void button4_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+
         }
-        List<short> test1 = new List<short>();
-        List<short> test2 = new List<short>();
-        List<short> test3 = new List<short>();
+        private void button7_Click(object sender, EventArgs e)
+        {
+            float rollpitch_kp = 0;
+            float rollpitch_ki = 0;
+            float yaw_kp = 0;
+            float yaw_ki = 0;
 
 
+            float.TryParse(textBox_rollpitchkp.Text, out rollpitch_kp);
+            float.TryParse(textBox_rollpitchki.Text, out rollpitch_ki);
+            float.TryParse(textBox_yawkp.Text, out yaw_kp);
+            float.TryParse(textBox_yawki.Text, out yaw_ki);
+
+
+            byte[] rp_kp = StructureToByteArray(rollpitch_kp);
+            byte[] rp_ki = StructureToByteArray(rollpitch_ki);
+            byte[] y_kp = StructureToByteArray(yaw_kp);
+            byte[] y_ki = StructureToByteArray(yaw_ki);
+
+
+            List<byte> buffer2 = new List<byte> 
+                            {0x80, rp_kp[0], rp_kp[1], rp_kp[2], rp_kp[3], 
+                                0x81, rp_ki[0], rp_ki[1], rp_ki[2], rp_ki[3], 
+                                0x82, y_kp[0], y_kp[1], y_kp[2], y_kp[3], 
+                                0x83, y_ki[0], y_ki[1], y_ki[2], y_ki[3]
+                        };
+            buffer2.Insert(0, 0x03); //Write reg
+            buffer2.Insert(0, (byte)(buffer2.Count() + 1));
+            byte[] buffer = buffer2.ToArray();
+
+            port1.Write(buffer, 0, buffer.Length);
+        }
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            chart1.Series[0].Points.Clear();
+            chart2.Series[0].Points.Clear();
+            chart3.Series[0].Points.Clear();
+
+            //chart1.ChartAreas[0].AxisY.Maximum = -1;
+            //chart1.ChartAreas[0].AxisY.Minimum = -4;
+
+            //chart2.ChartAreas[0].AxisY.Maximum = 6;
+            //chart2.ChartAreas[0].AxisY.Minimum = 3;
+
+            //chart3.ChartAreas[0].AxisY.Maximum = -60;
+            //chart3.ChartAreas[0].AxisY.Minimum = -80;
+
+
+            chart4.Series[0].Points.Clear();
+            chart5.Series[0].Points.Clear();
+            chart6.Series[0].Points.Clear();
+
+            chart7.Series[0].Points.Clear();
+            chart8.Series[0].Points.Clear();
+            chart9.Series[0].Points.Clear();
+
+            //chart4.ChartAreas[0].AxisY.Maximum = 610;
+            //chart4.ChartAreas[0].AxisY.Minimum = 530;
+
+            //chart7.ChartAreas[0].AxisY.Maximum = 610;
+            //chart7.ChartAreas[0].AxisY.Minimum = 530;
+
+            //chart3.ChartAreas[0].AxisY.Maximum = -60;
+            //chart3.ChartAreas[0].AxisY.Minimum = -80;
+
+        }
+
+
+
+
+        /////////Communication Stuff//////////////////////////////////////////
+
+
+        List<byte> RxBuffer = new List<byte>();
+        SerialPort port1;
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct boardRegisters
         {
@@ -104,7 +175,9 @@ namespace SerialCommunication
             public short gyro_y_raw;
             public short gyro_z_raw;
             public short gyro_temp_raw;
-            //public short gyro_x_raw_avg; 
+            public short gyro_x_raw_avg;
+            public short gyro_y_raw_avg;
+            public short gyro_z_raw_avg; 
 
 
             public float mag_x;
@@ -120,16 +193,6 @@ namespace SerialCommunication
 
         }
 
-
-        //boardRegisters ByteArrayToNewStuff(byte[] bytes)
-        //{
-        //    GCHandle handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
-        //    boardRegisters stuff = (boardRegisters)Marshal.PtrToStructure(
-        //        handle.AddrOfPinnedObject(), typeof(boardRegisters));
-        //    handle.Free();
-        //    return stuff;
-        //}
-
         boardRegisters fromBytes(byte[] arr)
         {
             boardRegisters str = new boardRegisters();
@@ -144,8 +207,24 @@ namespace SerialCommunication
 
             return str;
         }
-        //////////////////////////////////////
+        public static byte[] StructureToByteArray(object obj)
+        {
+            //creds not to me
+            int len = Marshal.SizeOf(obj);
 
+            byte[] arr = new byte[len];
+
+            IntPtr ptr = Marshal.AllocHGlobal(len);
+
+            Marshal.StructureToPtr(obj, ptr, true);
+
+            Marshal.Copy(ptr, arr, 0, len);
+
+            Marshal.FreeHGlobal(ptr);
+
+            return arr;
+
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -157,97 +236,55 @@ namespace SerialCommunication
                     int count = RxBuffer[0];
                     RxBuffer.RemoveAt(0);
                     boardRegisters regs = fromBytes(RxBuffer.ToArray());
-                    RxBuffer.RemoveRange(0, count-1);
+                    RxBuffer.RemoveRange(0, count - 1);
 
-                    textBox12.Text = regs.roll.ToString();
+
+                    double roll_ang = (regs.roll * 180.0 / Math.PI);
+                    double pitch_ang = (regs.pitch * 180.0 / Math.PI);
+                    double yaw_ang = (regs.yaw * 180.0 / Math.PI);
+
+                    //textBox12.Text = regs.roll.ToString();
                     textBox1.Text = regs.accel_x.ToString();
                     textBox2.Text = regs.accel_y.ToString();
 
-                    textBox13.Text = regs.accel_x_raw.ToString();
+                    textBox4.Text = regs.gyro_x.ToString();
+                    textBox5.Text = regs.gyro_y.ToString();
+                    textBox6.Text = regs.gyro_z.ToString();
+
+                    textBox12.Text = regs.roll.ToString();
+                    textBox10.Text = regs.pitch.ToString();
+                    textBox11.Text = regs.yaw.ToString();
+
+                    textBox24.Text = roll_ang.ToString();
+                    textBox22.Text = pitch_ang.ToString();
+                    textBox23.Text = yaw_ang.ToString();
+
+                    //Charts updating
+                    chart1.Series[0].Points.Add(roll_ang);
+                    chart2.Series[0].Points.Add(pitch_ang);
+                    chart3.Series[0].Points.Add(yaw_ang);
 
 
-                    //int count = RxBuffer[0];
-                    //byte[] rxBuff = new byte[count - 1];
-                    //for (int i = 1; i < count; i++)
-                    //{
-                    //    rxBuff[i - 1] = RxBuffer[i];
-                    //}
-                    //RxBuffer.RemoveRange(0, count);
+                    chart4.Series[0].Points.Add(regs.gyro_x_raw);
+                    chart7.Series[0].Points.Add(regs.gyro_x_raw_avg);
 
-                    //var floatBuff = new float[12 * sizeof(float)];
-                    //Buffer.BlockCopy(rxBuff, 0, floatBuff, 0, floatBuff.Length);
+                    chart5.Series[0].Points.Add(regs.gyro_y_raw);
+                    chart8.Series[0].Points.Add(regs.gyro_y_raw_avg);
 
-                    //var shortBuff = new short[10 * sizeof(short)];
-                    //Buffer.BlockCopy(rxBuff, floatBuff.Length, shortBuff, 0, shortBuff.Length);
+                    chart6.Series[0].Points.Add(regs.gyro_z_raw);
+                    chart9.Series[0].Points.Add(regs.gyro_z_raw_avg);
 
 
-                    ////*****Converted
-                    ////accel
-                    //textBox1.Text = floatBuff[0].ToString();
-                    //textBox2.Text = floatBuff[1].ToString();
-                    //textBox3.Text = floatBuff[2].ToString();
-                    ////Gyro
-                    //textBox4.Text = floatBuff[3].ToString();
-                    //textBox5.Text = floatBuff[4].ToString();
-                    //textBox6.Text = floatBuff[5].ToString();
-                    ////Mag
-                    //textBox7.Text = floatBuff[6].ToString();
-                    //textBox8.Text = floatBuff[7].ToString();
-                    //textBox9.Text = floatBuff[8].ToString();
-                    ////Yaw pitch roll
-                    //textBox10.Text = floatBuff[9].ToString();
-                    //textBox11.Text = floatBuff[10].ToString();
-                    //textBox12.Text = floatBuff[11].ToString();
-
-                    //textBox22.Text = (floatBuff[9] * 180.0 / Math.PI).ToString("0.00");
-                    //textBox23.Text = (floatBuff[10] * 180.0 / Math.PI).ToString("0.00");
-                    //textBox24.Text = (floatBuff[11] * 180.0 / Math.PI).ToString("0.00");
-
-                    ////*****Raw
-                    ////accel
-                    //test1.Add(shortBuff[3]);
-                    //test2.Add(shortBuff[4]);
-                    //test3.Add(shortBuff[5]);
-                    //textBox13.Text = shortBuff[0].ToString();
-                    //textBox14.Text = shortBuff[1].ToString();
-                    //textBox15.Text = shortBuff[2].ToString();
-                    ////gyro
-                    //textBox16.Text = shortBuff[3].ToString();
-                    //textBox17.Text = shortBuff[4].ToString();
-                    //textBox18.Text = shortBuff[5].ToString();
-                    ////mag
-                    //textBox19.Text = shortBuff[6].ToString();
-                    //textBox20.Text = shortBuff[7].ToString();
-                    //textBox21.Text = shortBuff[8].ToString();
-
-                    ////***Avg raw
-                    //textBox32.Text = shortBuff[9].ToString();
-
-                    //chart1.Series[0].Points.Add(shortBuff[3]); //gyro raw
-                    //chart2.Series[0].Points.Add(shortBuff[9]); //gyro raw avg
-
+                    //Quad copter model updating
+                    quadcopterModel1.UpdateModel(regs.roll, regs.pitch, regs.yaw);
                 }
-                
+
             }
 
-            ////Send request
-            //byte[] buffer = { 24, 0x02, 
-            //                    //Accel
-            //                    0x10, 0x11, 0x12, 0x13,
-            //                    0x14, 0x15, 0x16, 0x17, 
 
-            //                    //Gyro
-            //                    0x20, 0x21, 0x22, 0x23,
-            //                    0x24, 0x25, 0x26, 0x27, 
-            //                    0x28, 
 
-            //                    //mag
-            //                    0x30, 0x31, 0x32, 
-            //                    0x33, 0x34, 0x35,
 
-            //                    //Roll yaw pitch
-            //                    0x40, 0x41, 0x42,
-            //                };
+
 
             List<byte> buffer2 = new List<byte> 
                                {0x10, 0x11, 0x12, 0x13,
@@ -256,7 +293,7 @@ namespace SerialCommunication
                                 //Gyro
                                 0x20, 0x21, 0x22, 0x23,
                                 0x24, 0x25, 0x26, 0x27, 
-                                0x28, 
+                                0x28, 0x29, 0x2A, 
 
                                 //mag
                                 0x30, 0x31, 0x32, 
@@ -269,29 +306,9 @@ namespace SerialCommunication
             buffer2.Insert(0, (byte)(buffer2.Count() + 1));
             byte[] buffer = buffer2.ToArray();
 
-
-
-            ////Send request
-            //byte[] buffer = { 24, 0x02, 
-            //                    //Coverted Sensor data
-            //                    0x10, 0x11, 0x12, 
-            //                    0x20, 0x21, 0x22,
-            //                    0x30, 0x31, 0x32,
-
-            //                    //Roll yaw pitch
-            //                    0x40, 0x41, 0x42,
-
-            //                    //Raw sensor data
-            //                    0x14, 0x15, 0x16, 
-            //                    0x24, 0x25, 0x26,
-            //                    0x33, 0x34, 0x35,
-                                
-            //                    //Average raw sensor data
-            //                    0x28
-            //                };
             port1.Write(buffer, 0, buffer.Length);
-        }
 
+        }
 
         private void port1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -302,77 +319,9 @@ namespace SerialCommunication
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            float avg1 = 0;
-            int total1 = 0;
-            for (int i = 0; i < test1.Count; i++)
-            {
-                total1 += test1[i];
-            }
-            avg1 = (float)total1 / (float)test1.Count;
-
-            float avg2 = 0;
-            int total2 = 0;
-            for (int i = 0; i < test2.Count; i++)
-            {
-                total2 += test2[i];
-            }
-            avg2 = (float)total2 / (float)test2.Count;
-
-            float avg3 = 0;
-            int total3 = 0;
-            for (int i = 0; i < test3.Count; i++)
-            {
-                total3 += test3[i];
-            }
-            avg3 = (float)total3 / (float)test3.Count;
-
-
-            textBox26.Text = avg1.ToString();
-            textBox27.Text = avg2.ToString();
-            textBox28.Text = avg3.ToString();
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            test1.Clear();
-            test2.Clear();
-            test3.Clear();
-            chart1.Series[0].Points.Clear();
-            chart2.Series[0].Points.Clear();
-
-            //chart1.ChartAreas[0].AxisY.Maximum = 1000;
-            //chart1.ChartAreas[0].AxisY.Minimum = -1000;
-
-            //chart2.ChartAreas[0].AxisY.Maximum = 1000;
-            //chart2.ChartAreas[0].AxisY.Minimum = -1000;
-        }
 
 
 
-
-        /*      #define SERIALCOMM_START_TOKEN      0x01
-         * 
-                #define SERIALCOMM_READ_REGISTER    0x02
-                #define SERIALCOMM_WRITE_REGISTER   0x03
-                #define SERIALCOMM_END_TOKEN        0xFF
-
-
-                #define SERIALCOMM_REGISTER_XAcceleration       0x10
-                #define SERIALCOMM_REGISTER_YAcceleration       0x11
-                #define SERIALCOMM_REGISTER_ZAcceleration       0x12
-                #define SERIALCOMM_REGISTER_AcceloTemperature   0x13
-
-                #define SERIALCOMM_REGISTER_XAngularRate        0x20
-                #define SERIALCOMM_REGISTER_YAngularRate        0x21
-                #define SERIALCOMM_REGISTER_ZAngularRate        0x22
-                #define SERIALCOMM_REGISTER_GyroTemperature     0x23
-
-                #define SERIALCOMM_REGISTER_XMagneticVector     0x30
-                #define SERIALCOMM_REGISTER_YMagneticVector     0x31
-                #define SERIALCOMM_REGISTER_ZMagneticVector     0x32*/
 
     }
 }
