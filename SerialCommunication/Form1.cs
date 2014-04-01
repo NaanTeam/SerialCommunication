@@ -161,11 +161,14 @@ namespace SerialCommunication
             public float accel_x;
             public float accel_y;
             public float accel_z;
-            public float accel_temp; 
+            public float accel_temp;
             public short accel_x_raw;
             public short accel_y_raw;
             public short accel_z_raw;
-            public short accel_temp_raw; 
+            public short accel_temp_raw;
+            public short accel_x_raw_avg;
+            public short accel_y_raw_avg;
+            public short accel_z_raw_avg;
 
             public float gyro_x;
             public float gyro_y;
@@ -246,10 +249,22 @@ namespace SerialCommunication
                     //textBox12.Text = regs.roll.ToString();
                     textBox1.Text = regs.accel_x.ToString();
                     textBox2.Text = regs.accel_y.ToString();
+                    textBox3.Text = regs.accel_z.ToString();
+
+                    textBox29.Text = regs.accel_x.ToString();
+                    textBox30.Text = regs.accel_y.ToString();
+                    textBox31.Text = regs.accel_z.ToString();
+
 
                     textBox4.Text = regs.gyro_x.ToString();
                     textBox5.Text = regs.gyro_y.ToString();
                     textBox6.Text = regs.gyro_z.ToString();
+
+                    textBox7.Text = regs.mag_x.ToString();
+                    textBox8.Text = regs.mag_y.ToString();
+                    textBox9.Text = regs.mag_z.ToString();
+
+
 
                     textBox12.Text = regs.roll.ToString();
                     textBox10.Text = regs.pitch.ToString();
@@ -265,14 +280,14 @@ namespace SerialCommunication
                     chart3.Series[0].Points.Add(yaw_ang);
 
 
-                    chart4.Series[0].Points.Add(regs.gyro_x_raw);
-                    chart7.Series[0].Points.Add(regs.gyro_x_raw_avg);
+                    chart4.Series[0].Points.Add(regs.accel_x_raw);
+                    chart7.Series[0].Points.Add(regs.accel_x_raw_avg);
 
-                    chart5.Series[0].Points.Add(regs.gyro_y_raw);
-                    chart8.Series[0].Points.Add(regs.gyro_y_raw_avg);
+                    chart5.Series[0].Points.Add(regs.accel_y_raw);
+                    chart8.Series[0].Points.Add(regs.accel_y_raw_avg);
 
-                    chart6.Series[0].Points.Add(regs.gyro_z_raw);
-                    chart9.Series[0].Points.Add(regs.gyro_z_raw_avg);
+                    chart6.Series[0].Points.Add(regs.accel_z_raw);
+                    chart9.Series[0].Points.Add(regs.accel_z_raw_avg);
 
 
                     //Quad copter model updating
@@ -288,7 +303,8 @@ namespace SerialCommunication
 
             List<byte> buffer2 = new List<byte> 
                                {0x10, 0x11, 0x12, 0x13,
-                                0x14, 0x15, 0x16, 0x17, 
+                                0x14, 0x15, 0x16, 0x17,
+                                0x18, 0x19, 0x1A,
 
                                 //Gyro
                                 0x20, 0x21, 0x22, 0x23,
