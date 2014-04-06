@@ -118,10 +118,14 @@ namespace SerialCommunication
             data_acclX.Clear();
             data_acclY.Clear();
             data_acclZ.Clear();
-            
+
             chart1.Series[0].Points.Clear();
             chart2.Series[0].Points.Clear();
             chart3.Series[0].Points.Clear();
+
+            chart1.Series[1].Points.Clear();
+            chart2.Series[1].Points.Clear();
+            chart3.Series[1].Points.Clear();
 
             //chart1.ChartAreas[0].AxisY.Maximum = -1;
             //chart1.ChartAreas[0].AxisY.Minimum = -4;
@@ -204,7 +208,19 @@ namespace SerialCommunication
 
             public float pitch;
             public float yaw;
-            public float roll;  
+            public float roll;
+            public float scaled_yaw;
+            public float desired_pitch;
+            public float desired_yaw;
+            public float desired_roll;
+            public float desired_throttle;
+
+            public float motor1;
+            public float motor2;
+            public float motor3;
+            public float motor4;
+
+            public float v_batt;
 
         }
 
@@ -292,14 +308,31 @@ namespace SerialCommunication
                     textBox10.Text = regs.pitch.ToString();
                     textBox11.Text = regs.yaw.ToString();
 
-                    textBox24.Text = roll_ang.ToString();
-                    textBox22.Text = pitch_ang.ToString();
-                    textBox23.Text = yaw_ang.ToString();
+                    //textBox24.Text = roll_ang.ToString();
+                    //textBox22.Text = pitch_ang.ToString();
+                    //textBox23.Text = yaw_ang.ToString();
+                    textBox40.Text = regs.scaled_yaw.ToString();
+
+                    textBox26.Text = regs.desired_roll.ToString();
+                    textBox27.Text = regs.desired_pitch.ToString();
+                    textBox28.Text = regs.desired_yaw.ToString();
+                    textBox39.Text = regs.desired_throttle.ToString();
+
+                    textBox35.Text = regs.motor1.ToString();
+                    textBox36.Text = regs.motor2.ToString();
+                    textBox37.Text = regs.motor3.ToString();
+                    textBox38.Text = regs.motor4.ToString();
+
+                    textBox41.Text = regs.v_batt.ToString();
 
                     //Charts updating
-                    chart1.Series[0].Points.Add(roll_ang);
-                    chart2.Series[0].Points.Add(pitch_ang);
-                    chart3.Series[0].Points.Add(yaw_ang);
+                    chart1.Series[0].Points.Add(regs.roll);
+                    chart2.Series[0].Points.Add(regs.pitch);
+                    chart3.Series[0].Points.Add(regs.yaw);
+
+                    chart1.Series[1].Points.Add(regs.desired_roll);
+                    chart2.Series[1].Points.Add(regs.desired_pitch);
+                    chart3.Series[1].Points.Add(regs.desired_yaw);
 
 
                     data_acclX.Add(regs.gyro_x_raw);
@@ -317,7 +350,7 @@ namespace SerialCommunication
 
 
                     //Quad copter model updating
-                    quadcopterModel1.UpdateModel(regs.roll, regs.pitch, regs.yaw);
+                    quadcopterModel1.UpdateModel(regs.roll, regs.pitch, regs.scaled_yaw);
                 }
 
             }
@@ -343,6 +376,16 @@ namespace SerialCommunication
 
                                 //Roll yaw pitch
                                 0x40, 0x41, 0x42,
+                                //scaled yaw
+                                0x43, 
+                                //Desired pitch, yaw, roll, throttle
+                                0x44, 0x45, 0x46, 0x47,
+
+                                //motor values
+                                0x50, 0x51, 0x52, 0x53,
+
+                                //voltage battery
+                                0x60
                             };
             buffer2.Insert(0, 0x02); //Read reg
             buffer2.Insert(buffer2.Count, 0xFF);
