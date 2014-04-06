@@ -114,6 +114,11 @@ namespace SerialCommunication
         }
         private void button6_Click_1(object sender, EventArgs e)
         {
+
+            data_acclX.Clear();
+            data_acclY.Clear();
+            data_acclZ.Clear();
+            
             chart1.Series[0].Points.Clear();
             chart2.Series[0].Points.Clear();
             chart3.Series[0].Points.Clear();
@@ -146,7 +151,14 @@ namespace SerialCommunication
             //chart3.ChartAreas[0].AxisY.Minimum = -80;
 
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //Dumps data to txt file
+            int a = 5;
 
+            a = 5*a + 5 + 4;
+
+        }
 
 
 
@@ -166,35 +178,36 @@ namespace SerialCommunication
             public short accel_y_raw;
             public short accel_z_raw;
             public short accel_temp_raw;
-            public short accel_x_raw_avg;
-            public short accel_y_raw_avg;
-            public short accel_z_raw_avg;
+            public float accel_x_raw_avg;
+            public float accel_y_raw_avg;
+            public float accel_z_raw_avg;
 
             public float gyro_x;
             public float gyro_y;
             public float gyro_z;
-            public float gyro_temp; 
+            public float gyro_temp;
             public short gyro_x_raw;
             public short gyro_y_raw;
             public short gyro_z_raw;
             public short gyro_temp_raw;
-            public short gyro_x_raw_avg;
-            public short gyro_y_raw_avg;
-            public short gyro_z_raw_avg; 
+            public float gyro_x_raw_avg;
+            public float gyro_y_raw_avg;
+            public float gyro_z_raw_avg;
 
 
             public float mag_x;
             public float mag_y;
-            public float mag_z; 
+            public float mag_z;
             public short mag_x_raw;
             public short mag_y_raw;
-            public short mag_z_raw; 
+            public short mag_z_raw;
 
             public float pitch;
             public float yaw;
             public float roll;  
 
         }
+
 
         boardRegisters fromBytes(byte[] arr)
         {
@@ -229,6 +242,11 @@ namespace SerialCommunication
 
         }
 
+        List<short> data_acclX = new List<short>();
+        List<short> data_acclY = new List<short>();
+        List<short> data_acclZ = new List<short>();
+
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             //Interpret buffer
@@ -238,7 +256,7 @@ namespace SerialCommunication
                 {
                     int count = RxBuffer[0];
                     RxBuffer.RemoveAt(0);
-                    boardRegisters regs = fromBytes(RxBuffer.ToArray());
+                    boardRegisters regs = fromBytes(RxBuffer.GetRange(0, count - 1).ToArray());
                     RxBuffer.RemoveRange(0, count - 1);
 
 
@@ -251,9 +269,13 @@ namespace SerialCommunication
                     textBox2.Text = regs.accel_y.ToString();
                     textBox3.Text = regs.accel_z.ToString();
 
-                    textBox29.Text = regs.accel_x.ToString();
-                    textBox30.Text = regs.accel_y.ToString();
-                    textBox31.Text = regs.accel_z.ToString();
+                    textBox13.Text = regs.accel_x_raw.ToString();
+                    textBox14.Text = regs.accel_y_raw.ToString();
+                    textBox15.Text = regs.accel_z_raw.ToString();
+
+                    textBox29.Text = regs.accel_x_raw_avg.ToString();
+                    textBox30.Text = regs.accel_y_raw_avg.ToString();
+                    textBox31.Text = regs.accel_z_raw_avg.ToString();
 
 
                     textBox4.Text = regs.gyro_x.ToString();
@@ -280,14 +302,18 @@ namespace SerialCommunication
                     chart3.Series[0].Points.Add(yaw_ang);
 
 
-                    chart4.Series[0].Points.Add(regs.accel_x_raw);
-                    chart7.Series[0].Points.Add(regs.accel_x_raw_avg);
+                    data_acclX.Add(regs.gyro_x_raw);
+                    data_acclY.Add(regs.gyro_y_raw);
+                    data_acclZ.Add(regs.gyro_z_raw);
 
-                    chart5.Series[0].Points.Add(regs.accel_y_raw);
-                    chart8.Series[0].Points.Add(regs.accel_y_raw_avg);
+                    chart4.Series[0].Points.Add(regs.gyro_x_raw);
+                    chart7.Series[0].Points.Add(regs.gyro_x_raw_avg);
 
-                    chart6.Series[0].Points.Add(regs.accel_z_raw);
-                    chart9.Series[0].Points.Add(regs.accel_z_raw_avg);
+                    chart5.Series[0].Points.Add(regs.gyro_y_raw);
+                    chart8.Series[0].Points.Add(regs.gyro_y_raw_avg);
+
+                    chart6.Series[0].Points.Add(regs.gyro_z_raw);
+                    chart9.Series[0].Points.Add(regs.gyro_z_raw_avg);
 
 
                     //Quad copter model updating
@@ -303,7 +329,7 @@ namespace SerialCommunication
 
             List<byte> buffer2 = new List<byte> 
                                {0x10, 0x11, 0x12, 0x13,
-                                0x14, 0x15, 0x16, 0x17,
+                               0x14, 0x15, 0x16, 0x17,
                                 0x18, 0x19, 0x1A,
 
                                 //Gyro
@@ -319,7 +345,11 @@ namespace SerialCommunication
                                 0x40, 0x41, 0x42,
                             };
             buffer2.Insert(0, 0x02); //Read reg
-            buffer2.Insert(0, (byte)(buffer2.Count() + 1));
+            buffer2.Insert(buffer2.Count, 0xFF);
+            buffer2.Insert(0, (byte)(buffer2.Count() + 1)); //Count
+
+
+
             byte[] buffer = buffer2.ToArray();
 
             port1.Write(buffer, 0, buffer.Length);
@@ -334,6 +364,8 @@ namespace SerialCommunication
                 RxBuffer.Add((byte)(port1.ReadByte()));
             }
         }
+
+
 
 
 

@@ -138,6 +138,7 @@
             this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -831,7 +832,7 @@
             this.chart9.Size = new System.Drawing.Size(292, 182);
             this.chart9.TabIndex = 76;
             title4.Name = "Roll";
-            title4.Text = "Roll";
+            title4.Text = "Z Raw LP";
             this.chart9.Titles.Add(title4);
             // 
             // chart8
@@ -852,7 +853,7 @@
             this.chart8.Size = new System.Drawing.Size(292, 182);
             this.chart8.TabIndex = 75;
             title5.Name = "Roll";
-            title5.Text = "Roll";
+            title5.Text = "Y Raw LP";
             this.chart8.Titles.Add(title5);
             // 
             // chart7
@@ -894,7 +895,7 @@
             this.chart6.Size = new System.Drawing.Size(292, 182);
             this.chart6.TabIndex = 73;
             title7.Name = "Roll";
-            title7.Text = "Roll";
+            title7.Text = "Z Raw";
             this.chart6.Titles.Add(title7);
             // 
             // chart5
@@ -915,7 +916,7 @@
             this.chart5.Size = new System.Drawing.Size(292, 182);
             this.chart5.TabIndex = 72;
             title8.Name = "Roll";
-            title8.Text = "Roll";
+            title8.Text = "Y Raw";
             this.chart5.Titles.Add(title8);
             // 
             // chart4
@@ -941,7 +942,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(341, 578);
+            this.button6.Location = new System.Drawing.Point(325, 588);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 70;
@@ -949,11 +950,22 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(325, 552);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 71;
+            this.button5.Text = "Dump";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1110, 627);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textBox34);
@@ -1117,6 +1129,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
     }
 }
 
