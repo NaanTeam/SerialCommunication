@@ -30,6 +30,14 @@ namespace SerialCommunication
             }
             comboBox1.SelectedIndex = 0;
             tabControl1.SelectedIndex = 1;
+            chart10.ChartAreas[0].AxisY.Maximum = 3200;
+            chart10.ChartAreas[0].AxisY.Minimum = 3000;
+            chart11.ChartAreas[0].AxisY.Maximum = 3200;
+            chart11.ChartAreas[0].AxisY.Minimum = 3000;
+            chart12.ChartAreas[0].AxisY.Maximum = 3200;
+            chart12.ChartAreas[0].AxisY.Minimum = 3000;
+            chart13.ChartAreas[0].AxisY.Maximum = 3200;
+            chart13.ChartAreas[0].AxisY.Minimum = 3000;
         }
 
 
@@ -145,8 +153,12 @@ namespace SerialCommunication
             chart8.Series[0].Points.Clear();
             chart9.Series[0].Points.Clear();
 
-            //chart4.ChartAreas[0].AxisY.Maximum = 610;
-            //chart4.ChartAreas[0].AxisY.Minimum = 530;
+            chart10.Series[0].Points.Clear();
+            chart11.Series[0].Points.Clear();
+            chart12.Series[0].Points.Clear();
+            chart13.Series[0].Points.Clear();
+
+
 
             //chart7.ChartAreas[0].AxisY.Maximum = 610;
             //chart7.ChartAreas[0].AxisY.Minimum = 530;
@@ -347,6 +359,11 @@ namespace SerialCommunication
 
                     chart6.Series[0].Points.Add(regs.gyro_z_raw);
                     chart9.Series[0].Points.Add(regs.gyro_z_raw_avg);
+
+                    chart10.Series[0].Points.Add(regs.motor1);
+                    chart11.Series[0].Points.Add(regs.motor2);
+                    chart12.Series[0].Points.Add(regs.motor3);
+                    chart13.Series[0].Points.Add(regs.motor4);
 
 
                     //Quad copter model updating
