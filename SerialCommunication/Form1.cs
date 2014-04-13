@@ -367,7 +367,7 @@ namespace SerialCommunication
 
 
                     //Quad copter model updating
-                    quadcopterModel1.UpdateModel(regs.roll, regs.pitch, regs.scaled_yaw);
+                    quadcopterModel1.UpdateModel(-1* regs.roll, -1*regs.pitch, -1*regs.scaled_yaw);
                 }
 
             }
