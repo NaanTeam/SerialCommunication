@@ -176,6 +176,21 @@ namespace SerialCommunication
 
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            List<byte> buffer2 = new List<byte> 
+                            {
+                                //Reset PID
+                                0x84, 
+                        };
+
+
+            buffer2.Insert(0, 0x03); //Write reg
+            buffer2.Insert(0, (byte)(buffer2.Count() + 1));
+            byte[] buffer = buffer2.ToArray();
+
+            port1.Write(buffer, 0, buffer.Length);
+        }
 
 
         /////////Communication Stuff//////////////////////////////////////////
@@ -301,6 +316,16 @@ namespace SerialCommunication
                     textBox14.Text = regs.accel_y_raw.ToString();
                     textBox15.Text = regs.accel_z_raw.ToString();
 
+                    textBox16.Text = regs.gyro_x_raw.ToString();
+                    textBox17.Text = regs.gyro_y_raw.ToString();
+                    textBox18.Text = regs.gyro_z_raw.ToString();
+
+                    textBox32.Text = regs.gyro_x_raw_avg.ToString();
+                    textBox33.Text = regs.gyro_y_raw_avg.ToString();
+                    textBox34.Text = regs.gyro_z_raw_avg.ToString();
+
+
+
                     textBox29.Text = regs.accel_x_raw_avg.ToString();
                     textBox30.Text = regs.accel_y_raw_avg.ToString();
                     textBox31.Text = regs.accel_z_raw_avg.ToString();
@@ -338,9 +363,9 @@ namespace SerialCommunication
                     textBox41.Text = regs.v_batt.ToString();
 
                     //Charts updating
-                    chart1.Series[0].Points.Add(regs.roll);
-                    chart2.Series[0].Points.Add(regs.pitch);
-                    chart3.Series[0].Points.Add(regs.yaw);
+                    chart1.Series[0].Points.Add(regs.roll * 180.0/Math.PI);
+                    chart2.Series[0].Points.Add(regs.pitch * 180.0 / Math.PI);
+                    chart3.Series[0].Points.Add(regs.yaw * 180.0 / Math.PI);
 
                     chart1.Series[1].Points.Add(regs.desired_roll);
                     chart2.Series[1].Points.Add(regs.desired_pitch);
@@ -351,14 +376,14 @@ namespace SerialCommunication
                     data_acclY.Add(regs.gyro_y_raw);
                     data_acclZ.Add(regs.gyro_z_raw);
 
-                    chart4.Series[0].Points.Add(regs.gyro_x_raw);
-                    chart7.Series[0].Points.Add(regs.gyro_x_raw_avg);
+                    chart4.Series[0].Points.Add(regs.accel_x_raw);
+                    chart7.Series[0].Points.Add(regs.accel_x_raw_avg);
 
-                    chart5.Series[0].Points.Add(regs.gyro_y_raw);
-                    chart8.Series[0].Points.Add(regs.gyro_y_raw_avg);
+                    chart5.Series[0].Points.Add(regs.accel_y_raw);
+                    chart8.Series[0].Points.Add(regs.accel_y_raw_avg);
 
-                    chart6.Series[0].Points.Add(regs.gyro_z_raw);
-                    chart9.Series[0].Points.Add(regs.gyro_z_raw_avg);
+                    chart6.Series[0].Points.Add(regs.accel_z_raw);
+                    chart9.Series[0].Points.Add(regs.accel_z_raw_avg);
 
                     chart10.Series[0].Points.Add(regs.motor1);
                     chart11.Series[0].Points.Add(regs.motor2);
@@ -424,6 +449,8 @@ namespace SerialCommunication
                 RxBuffer.Add((byte)(port1.ReadByte()));
             }
         }
+
+
 
 
 
