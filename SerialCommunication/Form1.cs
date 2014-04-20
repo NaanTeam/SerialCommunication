@@ -28,8 +28,10 @@ namespace SerialCommunication
             {
                 comboBox1.Items.Add(ports[i]);
             }
-            comboBox1.SelectedIndex = 0;
-            tabControl1.SelectedIndex = 1;
+            if (ports.Length > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
             chart10.ChartAreas[0].AxisY.Maximum = 3300;
             chart10.ChartAreas[0].AxisY.Minimum = 3000;
             chart11.ChartAreas[0].AxisY.Maximum = 3300;
@@ -379,9 +381,9 @@ namespace SerialCommunication
                     textBox41.Text = CurrRegs.v_batt.ToString();
 
                     //Charts updating
-                    chart1.Series[0].Points.Add(CurrRegs.roll * 180.0/Math.PI);
-                    chart2.Series[0].Points.Add(CurrRegs.pitch * 180.0 / Math.PI);
-                    chart3.Series[0].Points.Add(CurrRegs.yaw * 180.0 / Math.PI);
+                    chart1.Series[0].Points.Add(CurrRegs.roll);
+                    chart2.Series[0].Points.Add(CurrRegs.pitch);
+                    chart3.Series[0].Points.Add(CurrRegs.yaw);
 
                     chart1.Series[1].Points.Add(CurrRegs.desired_roll);
                     chart2.Series[1].Points.Add(CurrRegs.desired_pitch);
@@ -408,7 +410,7 @@ namespace SerialCommunication
 
 
                     //Quad copter model updating
-                    quadcopterModel1.UpdateModel(-1* CurrRegs.roll, -1*CurrRegs.pitch, -1*CurrRegs.scaled_yaw);
+                    quadcopterModel1.UpdateModel( CurrRegs.roll, CurrRegs.pitch, CurrRegs.scaled_yaw);
                 }
 
             }
@@ -589,6 +591,11 @@ namespace SerialCommunication
             byte[] buffer = buffer2.ToArray();
 
             port1.Write(buffer, 0, buffer.Length);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            quadcopterModel1.UpdateModel(-.3F, .2F, -.65F);
         }
 
     }

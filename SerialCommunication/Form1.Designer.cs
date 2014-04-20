@@ -133,6 +133,7 @@
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button9 = new System.Windows.Forms.Button();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox_yawki = new System.Windows.Forms.TextBox();
             this.textBox_yawkp = new System.Windows.Forms.TextBox();
@@ -151,6 +152,7 @@
             this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button11 = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
@@ -159,25 +161,6 @@
             this.chart12 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart11 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart10 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.textBox26 = new System.Windows.Forms.TextBox();
-            this.textBox27 = new System.Windows.Forms.TextBox();
-            this.textBox28 = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.textBox35 = new System.Windows.Forms.TextBox();
-            this.textBox36 = new System.Windows.Forms.TextBox();
-            this.textBox37 = new System.Windows.Forms.TextBox();
-            this.textBox38 = new System.Windows.Forms.TextBox();
-            this.textBox39 = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.textBox40 = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBox41 = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label35 = new System.Windows.Forms.Label();
@@ -206,6 +189,25 @@
             this.tbFilterRollPitchP = new System.Windows.Forms.TextBox();
             this.btWritePID = new System.Windows.Forms.Button();
             this.btReadPID = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textBox26 = new System.Windows.Forms.TextBox();
+            this.textBox27 = new System.Windows.Forms.TextBox();
+            this.textBox28 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.textBox35 = new System.Windows.Forms.TextBox();
+            this.textBox36 = new System.Windows.Forms.TextBox();
+            this.textBox37 = new System.Windows.Forms.TextBox();
+            this.textBox38 = new System.Windows.Forms.TextBox();
+            this.textBox39 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox40 = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBox41 = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.quadcopterModel1 = new SerialCommunication.QuadcopterModel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -228,6 +230,7 @@
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -300,7 +303,7 @@
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(292, 182);
+            this.chart1.Size = new System.Drawing.Size(90, 182);
             this.chart1.TabIndex = 6;
             title1.Name = "Roll";
             title1.Text = "Roll";
@@ -737,7 +740,7 @@
             series4.Name = "Series2";
             this.chart2.Series.Add(series3);
             this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(292, 182);
+            this.chart2.Size = new System.Drawing.Size(90, 182);
             this.chart2.TabIndex = 67;
             title2.Name = "Title1";
             title2.Text = "Pitch";
@@ -748,14 +751,16 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(463, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(676, 653);
+            this.tabControl1.Size = new System.Drawing.Size(803, 653);
             this.tabControl1.TabIndex = 69;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button9);
             this.tabPage1.Controls.Add(this.chart3);
             this.tabPage1.Controls.Add(this.textBox_yawki);
             this.tabPage1.Controls.Add(this.textBox_yawkp);
@@ -764,7 +769,6 @@
             this.tabPage1.Controls.Add(this.label25);
             this.tabPage1.Controls.Add(this.label24);
             this.tabPage1.Controls.Add(this.label23);
-            this.tabPage1.Controls.Add(this.elementHost1);
             this.tabPage1.Controls.Add(this.label22);
             this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.chart1);
@@ -772,10 +776,20 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(668, 627);
+            this.tabPage1.Size = new System.Drawing.Size(795, 627);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Oreintation Filter";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(561, 392);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 78;
+            this.button9.Text = "button9";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // chart3
             // 
@@ -797,7 +811,7 @@
             series6.Name = "Series2";
             this.chart3.Series.Add(series5);
             this.chart3.Series.Add(series6);
-            this.chart3.Size = new System.Drawing.Size(292, 182);
+            this.chart3.Size = new System.Drawing.Size(160, 182);
             this.chart3.TabIndex = 77;
             title3.Name = "Title1";
             title3.Text = "Yaw";
@@ -892,7 +906,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(668, 627);
+            this.tabPage2.Size = new System.Drawing.Size(795, 627);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Sensor Data";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -912,7 +926,7 @@
             series7.Name = "Series1";
             series7.YValuesPerPoint = 2;
             this.chart9.Series.Add(series7);
-            this.chart9.Size = new System.Drawing.Size(292, 182);
+            this.chart9.Size = new System.Drawing.Size(160, 182);
             this.chart9.TabIndex = 76;
             title4.Name = "Roll";
             title4.Text = "Z Raw LP";
@@ -933,7 +947,7 @@
             series8.Name = "Series1";
             series8.YValuesPerPoint = 2;
             this.chart8.Series.Add(series8);
-            this.chart8.Size = new System.Drawing.Size(292, 182);
+            this.chart8.Size = new System.Drawing.Size(160, 182);
             this.chart8.TabIndex = 75;
             title5.Name = "Roll";
             title5.Text = "Y Raw LP";
@@ -954,7 +968,7 @@
             series9.Name = "Series1";
             series9.YValuesPerPoint = 2;
             this.chart7.Series.Add(series9);
-            this.chart7.Size = new System.Drawing.Size(292, 182);
+            this.chart7.Size = new System.Drawing.Size(160, 182);
             this.chart7.TabIndex = 74;
             title6.Name = "gyro";
             title6.Text = "X Raw LP";
@@ -975,7 +989,7 @@
             series10.Name = "Series1";
             series10.YValuesPerPoint = 2;
             this.chart6.Series.Add(series10);
-            this.chart6.Size = new System.Drawing.Size(292, 182);
+            this.chart6.Size = new System.Drawing.Size(160, 182);
             this.chart6.TabIndex = 73;
             title7.Name = "Roll";
             title7.Text = "Z Raw";
@@ -996,7 +1010,7 @@
             series11.Name = "Series1";
             series11.YValuesPerPoint = 2;
             this.chart5.Series.Add(series11);
-            this.chart5.Size = new System.Drawing.Size(292, 182);
+            this.chart5.Size = new System.Drawing.Size(160, 182);
             this.chart5.TabIndex = 72;
             title8.Name = "Roll";
             title8.Text = "Y Raw";
@@ -1017,7 +1031,7 @@
             series12.Name = "Series1";
             series12.YValuesPerPoint = 2;
             this.chart4.Series.Add(series12);
-            this.chart4.Size = new System.Drawing.Size(292, 182);
+            this.chart4.Size = new System.Drawing.Size(160, 182);
             this.chart4.TabIndex = 71;
             title9.Name = "gyro";
             title9.Text = "X Raw";
@@ -1038,10 +1052,20 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(668, 627);
+            this.tabPage3.Size = new System.Drawing.Size(795, 627);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Motors";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(572, 545);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(75, 23);
+            this.button11.TabIndex = 21;
+            this.button11.Text = "Reset PID";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // label34
             // 
@@ -1098,7 +1122,7 @@
             series13.Name = "Series1";
             series13.YValuesPerPoint = 2;
             this.chart13.Series.Add(series13);
-            this.chart13.Size = new System.Drawing.Size(300, 250);
+            this.chart13.Size = new System.Drawing.Size(168, 250);
             this.chart13.TabIndex = 75;
             title10.Name = "Title1";
             title10.Text = "Motor4";
@@ -1119,7 +1143,7 @@
             series14.Name = "Series1";
             series14.YValuesPerPoint = 2;
             this.chart12.Series.Add(series14);
-            this.chart12.Size = new System.Drawing.Size(300, 250);
+            this.chart12.Size = new System.Drawing.Size(168, 250);
             this.chart12.TabIndex = 74;
             title11.Name = "Title1";
             title11.Text = "Motor3";
@@ -1140,7 +1164,7 @@
             series15.Name = "Series1";
             series15.YValuesPerPoint = 2;
             this.chart11.Series.Add(series15);
-            this.chart11.Size = new System.Drawing.Size(300, 250);
+            this.chart11.Size = new System.Drawing.Size(168, 250);
             this.chart11.TabIndex = 73;
             title12.Name = "Title1";
             title12.Text = "Motor2";
@@ -1161,166 +1185,11 @@
             series16.Name = "Series1";
             series16.YValuesPerPoint = 2;
             this.chart10.Series.Add(series16);
-            this.chart10.Size = new System.Drawing.Size(300, 250);
+            this.chart10.Size = new System.Drawing.Size(168, 250);
             this.chart10.TabIndex = 72;
             title13.Name = "Title1";
             title13.Text = "Motor1";
             this.chart10.Titles.Add(title13);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(356, 533);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 70;
-            this.button6.Text = "Clear";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click_1);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(356, 504);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 71;
-            this.button5.Text = "Dump";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(353, 377);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(43, 13);
-            this.label26.TabIndex = 72;
-            this.label26.Text = "Desired";
-            // 
-            // textBox26
-            // 
-            this.textBox26.Location = new System.Drawing.Point(356, 393);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.Size = new System.Drawing.Size(100, 20);
-            this.textBox26.TabIndex = 73;
-            // 
-            // textBox27
-            // 
-            this.textBox27.Location = new System.Drawing.Point(356, 419);
-            this.textBox27.Name = "textBox27";
-            this.textBox27.Size = new System.Drawing.Size(100, 20);
-            this.textBox27.TabIndex = 74;
-            // 
-            // textBox28
-            // 
-            this.textBox28.Location = new System.Drawing.Point(356, 445);
-            this.textBox28.Name = "textBox28";
-            this.textBox28.Size = new System.Drawing.Size(100, 20);
-            this.textBox28.TabIndex = 75;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(2, 509);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(40, 13);
-            this.label27.TabIndex = 76;
-            this.label27.Text = "Motor1";
-            // 
-            // textBox35
-            // 
-            this.textBox35.Location = new System.Drawing.Point(48, 506);
-            this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(100, 20);
-            this.textBox35.TabIndex = 77;
-            // 
-            // textBox36
-            // 
-            this.textBox36.Location = new System.Drawing.Point(48, 532);
-            this.textBox36.Name = "textBox36";
-            this.textBox36.Size = new System.Drawing.Size(100, 20);
-            this.textBox36.TabIndex = 78;
-            // 
-            // textBox37
-            // 
-            this.textBox37.Location = new System.Drawing.Point(48, 558);
-            this.textBox37.Name = "textBox37";
-            this.textBox37.Size = new System.Drawing.Size(100, 20);
-            this.textBox37.TabIndex = 79;
-            // 
-            // textBox38
-            // 
-            this.textBox38.Location = new System.Drawing.Point(48, 584);
-            this.textBox38.Name = "textBox38";
-            this.textBox38.Size = new System.Drawing.Size(100, 20);
-            this.textBox38.TabIndex = 80;
-            // 
-            // textBox39
-            // 
-            this.textBox39.Location = new System.Drawing.Point(356, 471);
-            this.textBox39.Name = "textBox39";
-            this.textBox39.Size = new System.Drawing.Size(100, 20);
-            this.textBox39.TabIndex = 81;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(311, 474);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(39, 13);
-            this.label28.TabIndex = 82;
-            this.label28.Text = "throttle";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(259, 377);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(40, 13);
-            this.label29.TabIndex = 83;
-            this.label29.Text = "Scaled";
-            // 
-            // textBox40
-            // 
-            this.textBox40.Location = new System.Drawing.Point(262, 445);
-            this.textBox40.Name = "textBox40";
-            this.textBox40.Size = new System.Drawing.Size(81, 20);
-            this.textBox40.TabIndex = 84;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(2, 615);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(35, 13);
-            this.label30.TabIndex = 85;
-            this.label30.Text = "V batt";
-            // 
-            // textBox41
-            // 
-            this.textBox41.Location = new System.Drawing.Point(48, 612);
-            this.textBox41.Name = "textBox41";
-            this.textBox41.Size = new System.Drawing.Size(100, 20);
-            this.textBox41.TabIndex = 86;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(381, 584);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 87;
-            this.button8.Text = "Reset Filter";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(572, 545);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 21;
-            this.button11.Text = "Reset PID";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // groupBox7
             // 
@@ -1577,13 +1446,169 @@
             this.btReadPID.UseVisualStyleBackColor = true;
             this.btReadPID.Click += new System.EventHandler(this.btReadPID_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(356, 533);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 70;
+            this.button6.Text = "Clear";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(356, 504);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 71;
+            this.button5.Text = "Dump";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(353, 377);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(43, 13);
+            this.label26.TabIndex = 72;
+            this.label26.Text = "Desired";
+            // 
+            // textBox26
+            // 
+            this.textBox26.Location = new System.Drawing.Point(356, 393);
+            this.textBox26.Name = "textBox26";
+            this.textBox26.Size = new System.Drawing.Size(100, 20);
+            this.textBox26.TabIndex = 73;
+            // 
+            // textBox27
+            // 
+            this.textBox27.Location = new System.Drawing.Point(356, 419);
+            this.textBox27.Name = "textBox27";
+            this.textBox27.Size = new System.Drawing.Size(100, 20);
+            this.textBox27.TabIndex = 74;
+            // 
+            // textBox28
+            // 
+            this.textBox28.Location = new System.Drawing.Point(356, 445);
+            this.textBox28.Name = "textBox28";
+            this.textBox28.Size = new System.Drawing.Size(100, 20);
+            this.textBox28.TabIndex = 75;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(2, 509);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(40, 13);
+            this.label27.TabIndex = 76;
+            this.label27.Text = "Motor1";
+            // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(48, 506);
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(100, 20);
+            this.textBox35.TabIndex = 77;
+            // 
+            // textBox36
+            // 
+            this.textBox36.Location = new System.Drawing.Point(48, 532);
+            this.textBox36.Name = "textBox36";
+            this.textBox36.Size = new System.Drawing.Size(100, 20);
+            this.textBox36.TabIndex = 78;
+            // 
+            // textBox37
+            // 
+            this.textBox37.Location = new System.Drawing.Point(48, 558);
+            this.textBox37.Name = "textBox37";
+            this.textBox37.Size = new System.Drawing.Size(100, 20);
+            this.textBox37.TabIndex = 79;
+            // 
+            // textBox38
+            // 
+            this.textBox38.Location = new System.Drawing.Point(48, 584);
+            this.textBox38.Name = "textBox38";
+            this.textBox38.Size = new System.Drawing.Size(100, 20);
+            this.textBox38.TabIndex = 80;
+            // 
+            // textBox39
+            // 
+            this.textBox39.Location = new System.Drawing.Point(356, 471);
+            this.textBox39.Name = "textBox39";
+            this.textBox39.Size = new System.Drawing.Size(100, 20);
+            this.textBox39.TabIndex = 81;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(311, 474);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(39, 13);
+            this.label28.TabIndex = 82;
+            this.label28.Text = "throttle";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(259, 377);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(40, 13);
+            this.label29.TabIndex = 83;
+            this.label29.Text = "Scaled";
+            // 
+            // textBox40
+            // 
+            this.textBox40.Location = new System.Drawing.Point(262, 445);
+            this.textBox40.Name = "textBox40";
+            this.textBox40.Size = new System.Drawing.Size(81, 20);
+            this.textBox40.TabIndex = 84;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(2, 615);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(35, 13);
+            this.label30.TabIndex = 85;
+            this.label30.Text = "V batt";
+            // 
+            // textBox41
+            // 
+            this.textBox41.Location = new System.Drawing.Point(48, 612);
+            this.textBox41.Name = "textBox41";
+            this.textBox41.Size = new System.Drawing.Size(100, 20);
+            this.textBox41.TabIndex = 86;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(381, 584);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 87;
+            this.button8.Text = "Reset Filter";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.elementHost1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(795, 627);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
             // elementHost1
             // 
             this.elementHost1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.elementHost1.Location = new System.Drawing.Point(330, 109);
+            this.elementHost1.Location = new System.Drawing.Point(6, 15);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(260, 175);
-            this.elementHost1.TabIndex = 68;
+            this.elementHost1.Size = new System.Drawing.Size(771, 503);
+            this.elementHost1.TabIndex = 69;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.quadcopterModel1;
             // 
@@ -1591,7 +1616,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1151, 671);
+            this.ClientSize = new System.Drawing.Size(1370, 671);
             this.Controls.Add(this.textBox41);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.button8);
@@ -1694,6 +1719,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1761,8 +1787,6 @@
         private System.Windows.Forms.TextBox textBox33;
         private System.Windows.Forms.TextBox textBox34;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private QuadcopterModel quadcopterModel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1838,6 +1862,10 @@
         private System.Windows.Forms.TextBox tbFilterRollPitchP;
         private System.Windows.Forms.Button btWritePID;
         private System.Windows.Forms.Button btReadPID;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private QuadcopterModel quadcopterModel1;
     }
 }
 
