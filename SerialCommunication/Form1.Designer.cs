@@ -189,6 +189,9 @@
             this.tbFilterRollPitchP = new System.Windows.Forms.TextBox();
             this.btWritePID = new System.Windows.Forms.Button();
             this.btReadPID = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.quadcopterModel1 = new SerialCommunication.QuadcopterModel();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
@@ -207,9 +210,6 @@
             this.label30 = new System.Windows.Forms.Label();
             this.textBox41 = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.quadcopterModel1 = new SerialCommunication.QuadcopterModel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -230,7 +230,6 @@
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -303,7 +302,7 @@
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(90, 182);
+            this.chart1.Size = new System.Drawing.Size(265, 182);
             this.chart1.TabIndex = 6;
             title1.Name = "Roll";
             title1.Text = "Roll";
@@ -740,7 +739,7 @@
             series4.Name = "Series2";
             this.chart2.Series.Add(series3);
             this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(90, 182);
+            this.chart2.Size = new System.Drawing.Size(265, 182);
             this.chart2.TabIndex = 67;
             title2.Name = "Title1";
             title2.Text = "Pitch";
@@ -760,6 +759,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.elementHost1);
             this.tabPage1.Controls.Add(this.button9);
             this.tabPage1.Controls.Add(this.chart3);
             this.tabPage1.Controls.Add(this.textBox_yawki);
@@ -811,7 +811,7 @@
             series6.Name = "Series2";
             this.chart3.Series.Add(series5);
             this.chart3.Series.Add(series6);
-            this.chart3.Size = new System.Drawing.Size(160, 182);
+            this.chart3.Size = new System.Drawing.Size(335, 182);
             this.chart3.TabIndex = 77;
             title3.Name = "Title1";
             title3.Text = "Yaw";
@@ -926,7 +926,7 @@
             series7.Name = "Series1";
             series7.YValuesPerPoint = 2;
             this.chart9.Series.Add(series7);
-            this.chart9.Size = new System.Drawing.Size(160, 182);
+            this.chart9.Size = new System.Drawing.Size(248, 182);
             this.chart9.TabIndex = 76;
             title4.Name = "Roll";
             title4.Text = "Z Raw LP";
@@ -947,7 +947,7 @@
             series8.Name = "Series1";
             series8.YValuesPerPoint = 2;
             this.chart8.Series.Add(series8);
-            this.chart8.Size = new System.Drawing.Size(160, 182);
+            this.chart8.Size = new System.Drawing.Size(248, 182);
             this.chart8.TabIndex = 75;
             title5.Name = "Roll";
             title5.Text = "Y Raw LP";
@@ -968,7 +968,7 @@
             series9.Name = "Series1";
             series9.YValuesPerPoint = 2;
             this.chart7.Series.Add(series9);
-            this.chart7.Size = new System.Drawing.Size(160, 182);
+            this.chart7.Size = new System.Drawing.Size(248, 182);
             this.chart7.TabIndex = 74;
             title6.Name = "gyro";
             title6.Text = "X Raw LP";
@@ -989,7 +989,7 @@
             series10.Name = "Series1";
             series10.YValuesPerPoint = 2;
             this.chart6.Series.Add(series10);
-            this.chart6.Size = new System.Drawing.Size(160, 182);
+            this.chart6.Size = new System.Drawing.Size(248, 182);
             this.chart6.TabIndex = 73;
             title7.Name = "Roll";
             title7.Text = "Z Raw";
@@ -1010,7 +1010,7 @@
             series11.Name = "Series1";
             series11.YValuesPerPoint = 2;
             this.chart5.Series.Add(series11);
-            this.chart5.Size = new System.Drawing.Size(160, 182);
+            this.chart5.Size = new System.Drawing.Size(248, 182);
             this.chart5.TabIndex = 72;
             title8.Name = "Roll";
             title8.Text = "Y Raw";
@@ -1031,7 +1031,7 @@
             series12.Name = "Series1";
             series12.YValuesPerPoint = 2;
             this.chart4.Series.Add(series12);
-            this.chart4.Size = new System.Drawing.Size(160, 182);
+            this.chart4.Size = new System.Drawing.Size(248, 182);
             this.chart4.TabIndex = 71;
             title9.Name = "gyro";
             title9.Text = "X Raw";
@@ -1122,7 +1122,7 @@
             series13.Name = "Series1";
             series13.YValuesPerPoint = 2;
             this.chart13.Series.Add(series13);
-            this.chart13.Size = new System.Drawing.Size(168, 250);
+            this.chart13.Size = new System.Drawing.Size(286, 250);
             this.chart13.TabIndex = 75;
             title10.Name = "Title1";
             title10.Text = "Motor4";
@@ -1143,7 +1143,7 @@
             series14.Name = "Series1";
             series14.YValuesPerPoint = 2;
             this.chart12.Series.Add(series14);
-            this.chart12.Size = new System.Drawing.Size(168, 250);
+            this.chart12.Size = new System.Drawing.Size(286, 250);
             this.chart12.TabIndex = 74;
             title11.Name = "Title1";
             title11.Text = "Motor3";
@@ -1164,7 +1164,7 @@
             series15.Name = "Series1";
             series15.YValuesPerPoint = 2;
             this.chart11.Series.Add(series15);
-            this.chart11.Size = new System.Drawing.Size(168, 250);
+            this.chart11.Size = new System.Drawing.Size(286, 250);
             this.chart11.TabIndex = 73;
             title12.Name = "Title1";
             title12.Text = "Motor2";
@@ -1185,7 +1185,7 @@
             series16.Name = "Series1";
             series16.YValuesPerPoint = 2;
             this.chart10.Series.Add(series16);
-            this.chart10.Size = new System.Drawing.Size(168, 250);
+            this.chart10.Size = new System.Drawing.Size(286, 250);
             this.chart10.TabIndex = 72;
             title13.Name = "Title1";
             title13.Text = "Motor1";
@@ -1446,6 +1446,26 @@
             this.btReadPID.UseVisualStyleBackColor = true;
             this.btReadPID.Click += new System.EventHandler(this.btReadPID_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(795, 627);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // elementHost1
+            // 
+            this.elementHost1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.elementHost1.Location = new System.Drawing.Point(324, 41);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(290, 194);
+            this.elementHost1.TabIndex = 69;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.quadcopterModel1;
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(356, 533);
@@ -1591,32 +1611,11 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.elementHost1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(795, 627);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // elementHost1
-            // 
-            this.elementHost1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.elementHost1.Location = new System.Drawing.Point(6, 15);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(771, 503);
-            this.elementHost1.TabIndex = 69;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.quadcopterModel1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 671);
+            this.ClientSize = new System.Drawing.Size(1288, 671);
             this.Controls.Add(this.textBox41);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.button8);
@@ -1719,7 +1718,6 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

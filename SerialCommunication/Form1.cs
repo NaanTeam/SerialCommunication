@@ -238,7 +238,6 @@ namespace SerialCommunication
             public float pitch;
             public float yaw;
             public float roll;
-            public float scaled_yaw;
             public float desired_pitch;
             public float desired_yaw;
             public float desired_roll;
@@ -366,7 +365,6 @@ namespace SerialCommunication
                     //textBox24.Text = roll_ang.ToString();
                     //textBox22.Text = pitch_ang.ToString();
                     //textBox23.Text = yaw_ang.ToString();
-                    textBox40.Text = CurrRegs.scaled_yaw.ToString();
 
                     textBox26.Text = CurrRegs.desired_roll.ToString();
                     textBox27.Text = CurrRegs.desired_pitch.ToString();
@@ -410,7 +408,7 @@ namespace SerialCommunication
 
 
                     //Quad copter model updating
-                    quadcopterModel1.UpdateModel( CurrRegs.roll, CurrRegs.pitch, CurrRegs.scaled_yaw);
+                    quadcopterModel1.UpdateModel( CurrRegs.roll, CurrRegs.pitch, CurrRegs.yaw);
                 }
 
             }
@@ -430,8 +428,7 @@ namespace SerialCommunication
 
                                 //Roll yaw pitch
                                 0x40, 0x41, 0x42,
-                                //scaled yaw
-                                0x43, 
+
                                 //Desired pitch, yaw, roll, throttle
                                 0x44, 0x45, 0x46, 0x47,
 
