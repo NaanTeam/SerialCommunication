@@ -32,13 +32,13 @@ namespace SerialCommunication
             {
                 comboBox1.SelectedIndex = 0;
             }
-            chart10.ChartAreas[0].AxisY.Maximum = 3300;
+            chart10.ChartAreas[0].AxisY.Maximum = 3100;
             chart10.ChartAreas[0].AxisY.Minimum = 3000;
-            chart11.ChartAreas[0].AxisY.Maximum = 3300;
+            chart11.ChartAreas[0].AxisY.Maximum = 3100;
             chart11.ChartAreas[0].AxisY.Minimum = 3000;
-            chart12.ChartAreas[0].AxisY.Maximum = 3300;
+            chart12.ChartAreas[0].AxisY.Maximum = 3100;
             chart12.ChartAreas[0].AxisY.Minimum = 3000;
-            chart13.ChartAreas[0].AxisY.Maximum = 3300;
+            chart13.ChartAreas[0].AxisY.Maximum = 3100;
             chart13.ChartAreas[0].AxisY.Minimum = 3000;
         }
 
@@ -90,39 +90,7 @@ namespace SerialCommunication
             timer1.Enabled = false;
 
         }
-        private void button7_Click(object sender, EventArgs e)
-        {
-            float rollpitch_kp = 0;
-            float rollpitch_ki = 0;
-            float yaw_kp = 0;
-            float yaw_ki = 0;
-
-
-            float.TryParse(textBox_rollpitchkp.Text, out rollpitch_kp);
-            float.TryParse(textBox_rollpitchki.Text, out rollpitch_ki);
-            float.TryParse(textBox_yawkp.Text, out yaw_kp);
-            float.TryParse(textBox_yawki.Text, out yaw_ki);
-
-
-            byte[] rp_kp = StructureToByteArray(rollpitch_kp);
-            byte[] rp_ki = StructureToByteArray(rollpitch_ki);
-            byte[] y_kp = StructureToByteArray(yaw_kp);
-            byte[] y_ki = StructureToByteArray(yaw_ki);
-
-
-            List<byte> buffer2 = new List<byte> 
-                            {0x80, rp_kp[0], rp_kp[1], rp_kp[2], rp_kp[3], 
-                                0x81, rp_ki[0], rp_ki[1], rp_ki[2], rp_ki[3], 
-                                0x82, y_kp[0], y_kp[1], y_kp[2], y_kp[3], 
-                                0x83, y_ki[0], y_ki[1], y_ki[2], y_ki[3]
-                        };
-            buffer2.Insert(0, 0x03); //Write reg
-            buffer2.Insert(0, (byte)(buffer2.Count() + 1));
-            byte[] buffer = buffer2.ToArray();
-
-            port1.Write(buffer, 0, buffer.Length);
-        }
-        private void button6_Click_1(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
 
             data_acclX.Clear();
@@ -405,7 +373,10 @@ namespace SerialCommunication
                     chart11.Series[0].Points.Add(CurrRegs.motor2);
                     chart12.Series[0].Points.Add(CurrRegs.motor3);
                     chart13.Series[0].Points.Add(CurrRegs.motor4);
-
+                    tbMotor1.Text = CurrRegs.motor1.ToString("0.00#####");
+                    tbMotor2.Text = CurrRegs.motor2.ToString("0.00#####");
+                    tbMotor3.Text = CurrRegs.motor3.ToString("0.00#####");
+                    tbMotor4.Text = CurrRegs.motor4.ToString("0.00#####");
 
                     //Quad copter model updating
                     quadcopterModel1.UpdateModel( CurrRegs.roll, CurrRegs.pitch, CurrRegs.yaw);
@@ -471,25 +442,25 @@ namespace SerialCommunication
         {
             //Motor PID
             //Roll
-            tbMotorRollP.Text = CurrRegs.PID_Roll_P.ToString("0.0######");
-            tbMotorRollI.Text = CurrRegs.PID_Roll_I.ToString("0.0######");
-            tbMotorRollD.Text = CurrRegs.PID_Roll_D.ToString("0.0######");
+            tbMotorRollP.Text = CurrRegs.PID_Roll_P.ToString("0.00#####");
+            tbMotorRollI.Text = CurrRegs.PID_Roll_I.ToString("0.00#####");
+            tbMotorRollD.Text = CurrRegs.PID_Roll_D.ToString("0.00#####");
             //pitch
-            tbMotorPitchP.Text = CurrRegs.PID_Pitch_P.ToString("0.0######");
-            tbMotorPitchI.Text = CurrRegs.PID_Pitch_I.ToString("0.0######");
-            tbMotorPitchD.Text = CurrRegs.PID_Pitch_D.ToString("0.0######");
+            tbMotorPitchP.Text = CurrRegs.PID_Pitch_P.ToString("0.00#####");
+            tbMotorPitchI.Text = CurrRegs.PID_Pitch_I.ToString("0.00#####");
+            tbMotorPitchD.Text = CurrRegs.PID_Pitch_D.ToString("0.00#####");
             //yaw
-            tbMotorYawP.Text = CurrRegs.PID_Yaw_P.ToString("0.0######");
-            tbMotorYawI.Text = CurrRegs.PID_Yaw_I.ToString("0.0######");
-            tbMotorYawD.Text = CurrRegs.PID_Yaw_D.ToString("0.0######");
+            tbMotorYawP.Text = CurrRegs.PID_Yaw_P.ToString("0.00#####");
+            tbMotorYawI.Text = CurrRegs.PID_Yaw_I.ToString("0.00#####");
+            tbMotorYawD.Text = CurrRegs.PID_Yaw_D.ToString("0.00#####");
 
             //Filter
             //Roll,Pitch
-            tbFilterRollPitchP.Text = CurrRegs.filter_RollPitch_P.ToString("0.0######");
-            tbFilterRollPitchI.Text = CurrRegs.filter_RollPitch_I.ToString("0.0######");
+            tbFilterRollPitchP.Text = CurrRegs.filter_RollPitch_P.ToString("0.00#####");
+            tbFilterRollPitchI.Text = CurrRegs.filter_RollPitch_I.ToString("0.00#####");
             //yaw
-            tbFilterYawP.Text = CurrRegs.filter_Yaw_P.ToString("0.0######");
-            tbFilterYawI.Text = CurrRegs.filter_Yaw_I.ToString("0.0######");
+            tbFilterYawP.Text = CurrRegs.filter_Yaw_P.ToString("0.00#####");
+            tbFilterYawI.Text = CurrRegs.filter_Yaw_I.ToString("0.00#####");
         }
 
         private void btWritePID_Click(object sender, EventArgs e)
@@ -590,10 +561,6 @@ namespace SerialCommunication
             port1.Write(buffer, 0, buffer.Length);
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            quadcopterModel1.UpdateModel(-.3F, .2F, -.65F);
-        }
 
     }
 }
