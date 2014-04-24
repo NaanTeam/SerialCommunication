@@ -40,6 +40,9 @@ namespace SerialCommunication
             chart12.ChartAreas[0].AxisY.Minimum = 3000;
             chart13.ChartAreas[0].AxisY.Maximum = 3100;
             chart13.ChartAreas[0].AxisY.Minimum = 3000;
+
+            chart1.ChartAreas[0].AxisY.Maximum = .5;
+            chart1.ChartAreas[0].AxisY.Minimum = -.5;
         }
 
 
@@ -127,6 +130,7 @@ namespace SerialCommunication
             chart11.Series[0].Points.Clear();
             chart12.Series[0].Points.Clear();
             chart13.Series[0].Points.Clear();
+            chart14.Series[0].Points.Clear();
 
 
 
@@ -233,6 +237,10 @@ namespace SerialCommunication
             public float PID_Yaw_I;
             public float PID_Yaw_D;
 
+            public float PID_ROLL_ERROR;
+            public float PID_ROLL_ERROR_SUM;
+            public float PID_ROLL_ERROR_DER;
+
         }
 
 
@@ -315,6 +323,10 @@ namespace SerialCommunication
                     textBox30.Text = CurrRegs.accel_y_raw_avg.ToString();
                     textBox31.Text = CurrRegs.accel_z_raw_avg.ToString();
 
+                    textBox44.Text = (2e-3 * CurrRegs.accel_x_raw_avg).ToString();
+                    textBox43.Text = (2e-3 * CurrRegs.accel_y_raw_avg).ToString();
+                    textBox42.Text = (2e-3 * CurrRegs.accel_z_raw_avg).ToString();
+
 
                     textBox4.Text = CurrRegs.gyro_x.ToString();
                     textBox5.Text = CurrRegs.gyro_y.ToString();
@@ -360,14 +372,17 @@ namespace SerialCommunication
                     data_acclY.Add(CurrRegs.gyro_y_raw);
                     data_acclZ.Add(CurrRegs.gyro_z_raw);
 
-                    chart4.Series[0].Points.Add(CurrRegs.accel_x_raw);
-                    chart7.Series[0].Points.Add(CurrRegs.accel_x_raw_avg);
+                    chart4.Series[0].Points.Add(CurrRegs.PID_ROLL_ERROR);
+                    chart5.Series[0].Points.Add(CurrRegs.PID_ROLL_ERROR_SUM);
+                    chart6.Series[0].Points.Add(CurrRegs.PID_ROLL_ERROR_DER);
 
-                    chart5.Series[0].Points.Add(CurrRegs.accel_y_raw);
-                    chart8.Series[0].Points.Add(CurrRegs.accel_y_raw_avg);
+                    chart7.Series[0].Points.Add(CurrRegs.PID_Roll_P * CurrRegs.PID_ROLL_ERROR);
+                    chart8.Series[0].Points.Add(CurrRegs.PID_Roll_I * CurrRegs.PID_ROLL_ERROR_SUM);
+                    chart9.Series[0].Points.Add(CurrRegs.PID_Roll_D * CurrRegs.PID_ROLL_ERROR_DER);
 
-                    chart6.Series[0].Points.Add(CurrRegs.accel_z_raw);
-                    chart9.Series[0].Points.Add(CurrRegs.accel_z_raw_avg);
+                    chart14.Series[0].Points.Add((CurrRegs.PID_Roll_P * CurrRegs.PID_ROLL_ERROR) +
+                        (CurrRegs.PID_Roll_I * CurrRegs.PID_ROLL_ERROR_SUM) +
+                        (CurrRegs.PID_Roll_D * CurrRegs.PID_ROLL_ERROR_DER));
 
                     chart10.Series[0].Points.Add(CurrRegs.motor1);
                     chart11.Series[0].Points.Add(CurrRegs.motor2);
@@ -416,7 +431,9 @@ namespace SerialCommunication
                                 //Roll PID, Pitch PID, Yaw PID
                                 0x90, 0x91, 0x92,
                                 0x93, 0x94, 0x95,
-                                0x96, 0x97, 0x98
+                                0x96, 0x97, 0x98,
+
+                                0x9A, 0x9B, 0x9C
                             };
 
             buffer2.Insert(0, 0x02); //Read reg
